@@ -60,9 +60,9 @@ public class UiController implements Initializable {
         if (!sidebar.isVisible()) {
             sidebar.setVisible(true);
             animationGenerator.applyTranslateAnimationOn(sidebar, 500, DEFAULT_ENDING_X_POSITION, DEFAULT_STARTING_X_POSITION);
-            animationGenerator.applyFadeAnimationOn(sidebar, 3000, 0f, 1.0f, null);
+            animationGenerator.applyFadeAnimationOn(sidebar, 600, 0f, 1.0f, null);
         } else {
-            animationGenerator.applyFadeAnimationOn(sidebar, 2000, 1.0f, 0.0f, (e) -> {
+            animationGenerator.applyFadeAnimationOn(sidebar, 600, 1.0f, 0.0f, (e) -> {
                 sidebar.setVisible(false);
             });
         }
