@@ -1,4 +1,4 @@
-package main;
+package ufrn.alvarofpp.ui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +14,7 @@ public class Launch extends Application {
 
     @Override
     public void start(Stage stage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("ui.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("xml/launch.fxml"));
         stage.setTitle("Hello World");
         Scene scene = new Scene(root); // , 300, 275
         scene.setFill(Color.TRANSPARENT);

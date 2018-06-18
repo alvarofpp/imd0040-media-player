@@ -1,4 +1,4 @@
-package main;
+package ufrn.alvarofpp.ui.helpers;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;

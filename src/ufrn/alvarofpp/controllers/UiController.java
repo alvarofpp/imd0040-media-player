@@ -1,4 +1,4 @@
-package main;
+package ufrn.alvarofpp.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -8,6 +8,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import ufrn.alvarofpp.ui.Launch;
+import ufrn.alvarofpp.ui.helpers.AnimationGenerator;
 
 public class UiController implements Initializable {
 
