@@ -29,30 +29,15 @@ public class LoginController extends UiController implements Initializable {
     }
 
     @FXML
-    private void handleLoginButtonAction(ActionEvent event) {
-        /*
-        String uname = username.getText();
-        String pword = DigestUtils.shaHex(password.getText());
+    private void handleLogin(ActionEvent event) {
+        String username = this.username.getText();
+        String password = this.password.getText();
 
-        if (uname.equals(preference.getUsername()) && pword.equals(preference.getPassword())) {
-            closeStage();
-            loadMain();
-            LOGGER.log(Level.INFO, "User successfully logged in {}", uname);
+        if (username.equals("alvarofpp") && password.equals("senha123")) {
+            System.out.println("Autenticado");
+        } else {
+            System.out.println("Não autenticado");
         }
-        else {
-            username.getStyleClass().add("wrong-credentials");
-            password.getStyleClass().add("wrong-credentials");
-        }
-        */
-    }
-
-    @FXML
-    private void handleCancelButtonAction(ActionEvent event) {
-        System.exit(0);
-    }
-
-    private void closeStage() {
-        ((Stage) username.getScene().getWindow()).close();
     }
 
     void loadMain() {
