@@ -9,6 +9,17 @@ Trabalho final da disciplina - unidade 3.
 - <a href="https://github.com/israelfontes">Israel Medeiros Fontes</a>
   - Matrícula: 2016037140 
   - E-mail: israeljapi@gmail.com
+  
+## Issues
+**Usuários**:
+- [ ] Autenticar um usuário e diferenciar ele em diferentes perfis de acesso
+- [ ] Cadastro de novos usuários
+
+**Músicas**:
+- [ ] Reproduzir uma música (já cadastrada), ou uma playlist de músicas
+- [ ] Adicionar/remover um arquivo de música, ou todos os arquivos de um diretório
+- [ ] Criar uma playlist com músicas previamente adicionadas ao media player
+- [ ] Buscar músicas cadastradas
 
 ## Git
 

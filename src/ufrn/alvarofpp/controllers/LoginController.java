@@ -40,6 +40,11 @@ public class LoginController extends UiController implements Initializable {
         }
     }
 
+    @FXML
+    private void callRegister(ActionEvent event) {
+
+    }
+
     void loadMain() {
         try {
             Parent parent = FXMLLoader.load(getClass().getResource("/library/assistant/ui/main/main.fxml"));

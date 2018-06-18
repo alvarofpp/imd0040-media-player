@@ -25,7 +25,8 @@
                 <Font size="17.0" />
             </font>
         </JFXPasswordField>
-        <JFXButton alignment="BOTTOM_CENTER" layoutX="170.0" layoutY="278.0" onAction="#handleLogin" prefHeight="40.0" prefWidth="90.0" styleClass="login-button" text="Login" />
+        <JFXButton layoutX="106.0" layoutY="278.0" onAction="#handleLogin" prefHeight="40.0" prefWidth="90.0" styleClass="login-button" text="Login" />
+        <JFXButton layoutX="230.0" layoutY="278.0" onAction="#callRegister" prefHeight="40.0" prefWidth="100.0" styleClass="login-button" text="Register" />
         <FontAwesomeIconView glyphName="CLOSE" layoutX="395.0" layoutY="20.0" onMouseClicked="#handleExitApp" size="1.5em" styleClass="close-btn" />
         <FontAwesomeIconView glyphName="USER" layoutX="64.0" layoutY="149.0" size="25" />
         <FontAwesomeIconView glyphName="KEY" layoutX="64.0" layoutY="224.0" size="25" />

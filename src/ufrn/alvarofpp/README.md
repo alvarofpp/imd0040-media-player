@@ -1,0 +1,7 @@
+- **controllers**: São os arquivos responsáveis pelo comportamento das *views*.
+- **css**: Arquivos *CSS*.
+- **data**: Arquivos de dados.
+- **img**: Imagens usadas no sistema.
+- **ui**: Contêm as *views* que o usuário irá interagir.
+  - **helpers**: Classes que irão ajudar as *views* (animações, etc).
+  - **xml**: Arquivos *FXML* com a estrutura das views.
