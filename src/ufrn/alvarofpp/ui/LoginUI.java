@@ -8,15 +8,15 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class Launch extends Application {
+public class LoginUI extends Application {
 
     public static Stage stage = null;
 
     @Override
     public void start(Stage stage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("xml/launch.fxml"));
-        stage.setTitle("Hello World");
-        Scene scene = new Scene(root); // , 300, 275
+        Parent root = FXMLLoader.load(getClass().getResource("xml/login.fxml"));
+        stage.setTitle("Hello!");
+        Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);
