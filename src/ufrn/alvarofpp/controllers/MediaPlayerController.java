@@ -11,7 +11,7 @@ import javafx.scene.layout.Pane;
 import ufrn.alvarofpp.ui.MediaPlayerUI;
 import ufrn.alvarofpp.ui.helpers.AnimationGenerator;
 
-public class MediaPlayerController implements Initializable {
+public class MediaPlayerController extends UiController implements Initializable {
 
     private double xOffset = 0;
     private double yOffset = 0;
@@ -66,10 +66,5 @@ public class MediaPlayerController implements Initializable {
                 sidebar.setVisible(false);
             });
         }
-    }
-
-    @FXML
-    private void close_app(MouseEvent event) {
-        System.exit(0);
     }
 }

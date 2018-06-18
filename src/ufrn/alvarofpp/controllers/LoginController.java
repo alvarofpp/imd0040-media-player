@@ -14,7 +14,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class LoginController implements Initializable {
+public class LoginController extends UiController implements Initializable {
 
     //private final static Logger LOGGER = LogManager.getLogger(LoginController.class.getName());
 

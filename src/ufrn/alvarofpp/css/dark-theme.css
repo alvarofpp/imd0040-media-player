@@ -263,3 +263,11 @@
     -fx-fill: derive(blue, 80%);
     -fx-cursor: hand;
 }
+
+.close-btn{
+    -fx-fill:#fff;
+}
+.close-btn:hover{
+    -fx-fill:#ff3333;
+    -fx-cursor: hand;
+}

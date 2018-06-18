@@ -22,7 +22,7 @@
                     </image>
                 </ImageView>
                 <FontAwesomeIconView glyphName="BARS" layoutX="14.0" layoutY="23.0" onMouseClicked="#open_or_close_sidebar" size="1.5em" styleClass="menu-btn" />
-                <FontAwesomeIconView glyphName="CLOSE" layoutX="356.0" layoutY="21.0" onMouseClicked="#close_app" size="1.5em" styleClass="close-btn" />
+                <FontAwesomeIconView glyphName="CLOSE" layoutX="356.0" layoutY="21.0" onMouseClicked="#handleExitApp" size="1.5em" styleClass="close-btn" />
                 <Label layoutX="88.0" layoutY="310.0" text="Now Playing : Love Me Like You Do" textFill="WHITE">
                     <font>
                         <Font name="Ebrima" size="13.0" />
