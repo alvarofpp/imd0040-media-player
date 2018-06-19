@@ -2,57 +2,34 @@ package ufrn.alvarofpp.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import ufrn.alvarofpp.controllers.helpers.Offset;
 import ufrn.alvarofpp.ui.MediaPlayerUI;
 import ufrn.alvarofpp.ui.helpers.AnimationGenerator;
 
-public class MediaPlayerController extends UiController implements Initializable {
+public class MediaPlayerController extends DefaultController {
 
-    private double xOffset = 0;
-    private double yOffset = 0;
+    private Offset offset;
     private static final int DEFAULT_STARTING_X_POSITION = 0;
     private static final int DEFAULT_ENDING_X_POSITION = -120;
-    AnimationGenerator animationGenerator = null;
+    private AnimationGenerator animationGenerator = null;
 
     @FXML
-    private HBox mediaplayer;
+    private HBox mediaplayerui;
     @FXML
     private Pane sidebar;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        makeStageDrageable();
+        offset = new Offset();
+        makeStageDrageable(mediaplayerui, offset);
         sidebar.setVisible(false);
         animationGenerator = new AnimationGenerator();
-    }
-
-    public void makeStageDrageable() {
-        mediaplayer.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                xOffset = event.getSceneX();
-                yOffset = event.getSceneY();
-            }
-        });
-        mediaplayer.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                MediaPlayerUI.stage.setX(event.getScreenX() - xOffset);
-                MediaPlayerUI.stage.setY(event.getScreenY() - yOffset);
-                MediaPlayerUI.stage.setOpacity(0.7f);
-            }
-        });
-        mediaplayer.setOnDragDone((e) -> {
-            MediaPlayerUI.stage.setOpacity(1.0f);
-        });
-        mediaplayer.setOnMouseReleased((e) -> {
-            MediaPlayerUI.stage.setOpacity(1.0f);
-        });
     }
 
     @FXML
@@ -66,5 +43,36 @@ public class MediaPlayerController extends UiController implements Initializable
                 sidebar.setVisible(false);
             });
         }
+    }
+
+    /**
+     * Torna a interface arrastavel
+     * @param ui Interface de usuário
+     * @param offset Coordenadas da interface
+     */
+    @Override
+    protected void makeStageDrageable(HBox ui, Offset offset) {
+
+        ui.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                offset.setxOffset(event.getSceneX());
+                offset.setyOffset(event.getSceneY());
+            }
+        });
+        ui.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                MediaPlayerUI.stage.setX(event.getScreenX() - offset.getxOffset());
+                MediaPlayerUI.stage.setY(event.getScreenY() - offset.getyOffset());
+                MediaPlayerUI.stage.setOpacity(0.7f);
+            }
+        });
+        ui.setOnDragDone((e) -> {
+            MediaPlayerUI.stage.setOpacity(1.0f);
+        });
+        ui.setOnMouseReleased((e) -> {
+            MediaPlayerUI.stage.setOpacity(1.0f);
+        });
     }
 }

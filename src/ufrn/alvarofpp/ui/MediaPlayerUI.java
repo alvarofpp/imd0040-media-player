@@ -9,11 +9,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class MediaPlayerUI extends Application {
-
     public static Stage stage = null;
 
     @Override
-    public void start(Stage stage) throws Exception{
+    public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("xml/mediaplayer.fxml"));
         stage.setTitle("Media Player");
         Scene scene = new Scene(root);
@@ -24,8 +23,8 @@ public class MediaPlayerUI extends Application {
         stage.show();
     }
 
-
     public static void main(String[] args) {
         launch(args);
     }
+
 }

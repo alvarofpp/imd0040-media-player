@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class LoginUI extends Application {
-
     public static Stage stage = null;
 
     @Override
@@ -24,8 +23,8 @@ public class LoginUI extends Application {
         stage.show();
     }
 
-
     public static void main(String[] args) {
         launch(args);
     }
+
 }
