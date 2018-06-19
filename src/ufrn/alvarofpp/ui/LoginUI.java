@@ -1,12 +1,12 @@
 package ufrn.alvarofpp.ui;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.scene.Parent;
+import javafx.fxml.FXMLLoader;
 import javafx.stage.StageStyle;
+import javafx.scene.paint.Color;
+import javafx.application.Application;
 
 public class LoginUI extends Application {
     public static Stage stage = null;

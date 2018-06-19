@@ -1,11 +1,11 @@
 package ufrn.alvarofpp.ui.helpers;
 
-import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.util.Duration;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 
 public class AnimationGenerator {
     public void applyTranslateAnimationOn(Node node, int duration, double from, double to) {
