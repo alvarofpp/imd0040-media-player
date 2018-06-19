@@ -98,6 +98,7 @@ public class LoginController extends DefaultController {
         loginui.setOnMouseReleased((e) -> {
             LoginUI.stage.setOpacity(1.0f);
         });
-    }
 
+    }
+    
 }
