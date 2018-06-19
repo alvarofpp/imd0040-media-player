@@ -12,6 +12,7 @@ import javafx.scene.layout.HBox;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import ufrn.alvarofpp.db.files.Users;
 import ufrn.alvarofpp.ui.LoginUI;
 import javafx.scene.input.MouseEvent;
 import com.jfoenix.controls.JFXTextField;
@@ -36,11 +37,17 @@ public class LoginController extends DefaultController {
     @FXML
     private JFXPasswordField password;
 
+    /**
+     * Usuários
+     */
+    Users users;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //preference = Preferences.getPreferences();
         coordinates = new Coordinates();
         makeStageDrageable();
+        this.users = new Users();
     }
 
     /**

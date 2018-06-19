@@ -1,6 +1,10 @@
 - **controllers**: São os arquivos responsáveis pelo comportamento das *views*.
+  - **helpers**: Classes que irão ajudar os *controllers* (caracteristicas).
 - **css**: Arquivos *CSS*.
-- **data**: Arquivos de dados.
+- **db**: "Banco de dados".
+  - **data**: Arquivos de dados.
+  - **files**: Classes para manipular os dados salvos.
+  - **models**: Classes que representam conjuntos de dados.
 - **img**: Imagens usadas no sistema.
 - **ui**: Contêm as *views* que o usuário irá interagir.
   - **helpers**: Classes que irão ajudar as *views* (animações, etc).
