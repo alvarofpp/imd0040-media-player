@@ -1,44 +1,52 @@
 package ufrn.alvarofpp.controllers;
 
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
-import java.io.IOException;
 import java.net.URL;
+import javafx.fxml.FXML;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.scene.Parent;
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.stage.StageStyle;
+import javafx.scene.layout.HBox;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import ufrn.alvarofpp.controllers.helpers.Offset;
 import ufrn.alvarofpp.ui.LoginUI;
-import ufrn.alvarofpp.ui.MediaPlayerUI;
+import javafx.scene.input.MouseEvent;
+import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXPasswordField;
+import ufrn.alvarofpp.controllers.helpers.Coordinates;
 
 public class LoginController extends DefaultController {
 
-    //private final static Logger LOGGER = LogManager.getLogger(LoginController.class.getName());
-
+    /**
+     * Interface de usuário
+     */
     @FXML
     private HBox loginui;
+    /**
+     * Campo que conterá o username do usuário
+     */
     @FXML
     private JFXTextField username;
+    /**
+     * Campo que conterá a senha do usuário
+     */
     @FXML
     private JFXPasswordField password;
-
-    private Offset offset;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //preference = Preferences.getPreferences();
-        offset = new Offset();
-        makeStageDrageable(loginui, offset);
+        coordinates = new Coordinates();
+        makeStageDrageable();
     }
 
+    /**
+     * Realiza o login no sistema
+     * @param event
+     */
     @FXML
     private void handleLogin(ActionEvent event) {
         String username = this.username.getText();
@@ -56,48 +64,30 @@ public class LoginController extends DefaultController {
 
     }
 
-    void loadMain() {
-        try {
-            Parent parent = FXMLLoader.load(getClass().getResource("/library/assistant/ui/main/main.fxml"));
-            Stage stage = new Stage(StageStyle.DECORATED);
-            stage.setTitle("Library Assistant");
-            stage.setScene(new Scene(parent));
-            stage.show();
-            //LibraryAssistantUtil.setStageIcon(stage);
-        }
-        catch (IOException ex) {
-            //LOGGER.log(Level.ERROR, "{}", ex);
-        }
-
-    }
-
     /**
      * Torna a interface arrastavel
-     * @param ui Interface de usuário
-     * @param offset Coordenadas da interface
      */
     @Override
-    protected void makeStageDrageable(HBox ui, Offset offset) {
-
-        ui.setOnMousePressed(new EventHandler<MouseEvent>() {
+    protected void makeStageDrageable() {
+        loginui.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                offset.setxOffset(event.getSceneX());
-                offset.setyOffset(event.getSceneY());
+                coordinates.setxOffset(event.getSceneX());
+                coordinates.setyOffset(event.getSceneY());
             }
         });
-        ui.setOnMouseDragged(new EventHandler<MouseEvent>() {
+        loginui.setOnMouseDragged(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                LoginUI.stage.setX(event.getScreenX() - offset.getxOffset());
-                LoginUI.stage.setY(event.getScreenY() - offset.getyOffset());
+                LoginUI.stage.setX(event.getScreenX() - coordinates.getxOffset());
+                LoginUI.stage.setY(event.getScreenY() - coordinates.getyOffset());
                 LoginUI.stage.setOpacity(0.7f);
             }
         });
-        ui.setOnDragDone((e) -> {
+        loginui.setOnDragDone((e) -> {
             LoginUI.stage.setOpacity(1.0f);
         });
-        ui.setOnMouseReleased((e) -> {
+        loginui.setOnMouseReleased((e) -> {
             LoginUI.stage.setOpacity(1.0f);
         });
     }

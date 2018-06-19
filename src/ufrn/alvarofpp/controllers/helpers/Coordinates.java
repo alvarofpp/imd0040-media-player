@@ -1,10 +1,20 @@
 package ufrn.alvarofpp.controllers.helpers;
 
-public class Offset {
+/**
+ * Essa classe guardará as coordendas X e Y das interfaces de usuários.
+ * Será usada, principalmente quando as interfaces forem arrastadas.
+ */
+public class Coordinates {
+    /**
+     * Coordenada X
+     */
     private double xOffset;
+    /**
+     * Coordenada Y
+     */
     private double yOffset;
 
-    public Offset() {
+    public Coordinates() {
         this.xOffset = 0.0;
         this.yOffset = 0.0;
     }

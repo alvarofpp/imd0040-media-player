@@ -1,13 +1,16 @@
 package ufrn.alvarofpp.controllers;
 
 import javafx.fxml.FXML;
-
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import ufrn.alvarofpp.controllers.helpers.Offset;
+import ufrn.alvarofpp.controllers.helpers.Coordinates;
 
 abstract class DefaultController implements Initializable {
+
+    /**
+     * Coordenadas da tela
+     */
+    Coordinates coordinates;
 
     /**
      * Fecha o aplicativo
@@ -20,9 +23,7 @@ abstract class DefaultController implements Initializable {
 
     /**
      * Torna a interface arrastavel
-     * @param ui Interface de usuário
-     * @param offset Coordenadas da interface
      */
-    abstract void makeStageDrageable(HBox ui, Offset offset);
+    abstract void makeStageDrageable();
 
 }
