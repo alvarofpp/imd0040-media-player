@@ -48,6 +48,7 @@ public class LoginController extends DefaultController {
         coordinates = new Coordinates();
         makeStageDrageable();
         this.users = new Users();
+        this.users.create("testando", "123456");
     }
 
     /**

@@ -1,7 +1,13 @@
 package ufrn.alvarofpp.db.models;
 
 public class User {
+    /**
+     * Nome do usuário
+     */
     private String username;
+    /**
+     * Senha do usuário
+     */
     private String password;
 
     public User(String username, String password) {

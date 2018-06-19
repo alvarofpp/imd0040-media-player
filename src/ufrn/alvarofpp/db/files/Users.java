@@ -2,25 +2,52 @@ package ufrn.alvarofpp.db.files;
 
 import java.util.Vector;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+
 import ufrn.alvarofpp.db.models.User;
 
 public class Users extends TableFile {
-    Vector<User> users;
+    /**
+     * Vetor de usuários cadastrados.
+     */
+    private Vector<User> users;
 
     public Users() {
         this.filename = "users.csv";
-        this.path = getClass().getResource("../data/users.csv").getPath();
+        this.path = getClass().getResource("../data/" + this.filename).getPath();
         this.users = new Vector<>();
         readFile();
     }
 
-    @Override
-    public void create() {
+    /**
+     * Cria uma nova instância e atualiza no arquivo
+     * @param username Nome de usuário
+     * @param password Senha de usuário
+     */
+    public void create(String username, String password) {
+        // Novo usuário
+        User user = new User(username, password);
+
+        try {
+            // Salva o novo usuário
+            BufferedWriter writer = new BufferedWriter(new FileWriter(this.path, true));
+            writer.write(user.getUsername() + this.delimiter + user.getPassword()+"\n");
+            writer.close();
+
+            // Atualiza a lista de usuários
+            this.users.add(user);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
+    /**
+     * Ler e salva os dados de todos os usuários cadastrados.
+     */
     @Override
     public void readFile() {
         String line = "";

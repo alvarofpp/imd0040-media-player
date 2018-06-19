@@ -15,11 +15,6 @@ public abstract class TableFile {
     String delimiter = ",";
 
     /**
-     * Cria uma nova instância e atualiza no arquivo
-     */
-    public abstract void create();
-
-    /**
      * Ler o arquivo e carrega os dados
      */
     public abstract void readFile();
