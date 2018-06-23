@@ -3,6 +3,7 @@ package ufrn.alvarofpp.controllers;
 import java.net.URL;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import java.io.IOException;
@@ -18,8 +19,11 @@ import javafx.scene.input.MouseEvent;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXPasswordField;
 import ufrn.alvarofpp.controllers.helpers.Coordinates;
+import ufrn.alvarofpp.ui.helpers.AnimationGenerator;
 
 public class LoginController extends DefaultController {
+    private static final int DEFAULT_STARTING_X_POSITION = 0;
+    private static final int DEFAULT_ENDING_X_POSITION = -120;
 
     /**
      * Interface de usuário
@@ -30,25 +34,36 @@ public class LoginController extends DefaultController {
      * Campo que conterá o username do usuário
      */
     @FXML
-    private JFXTextField username;
+    private JFXTextField loginUsername;
     /**
      * Campo que conterá a senha do usuário
      */
     @FXML
-    private JFXPasswordField password;
+    private JFXPasswordField loginPassword;
+    /**
+     * Interface de registrar novo usuário
+     */
+    @FXML
+    private Pane sideRegister;
 
     /**
      * Usuários
      */
     Users users;
 
+    /**
+     * Animações
+     */
+    private AnimationGenerator animationGenerator;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //preference = Preferences.getPreferences();
-        coordinates = new Coordinates();
+        this.coordinates = new Coordinates();
         makeStageDrageable();
+        this.sideRegister.setVisible(false);
         this.users = new Users();
-        this.users.create("testando", "123456");
+        this.animationGenerator = new AnimationGenerator();
     }
 
     /**
@@ -57,8 +72,8 @@ public class LoginController extends DefaultController {
      */
     @FXML
     private void handleLogin(ActionEvent event) {
-        String username = this.username.getText();
-        String password = this.password.getText();
+        String username = this.loginUsername.getText();
+        String password = this.loginPassword.getText();
 
         if (this.users.validateUser(username, password)) {
             System.out.println("Autenticado");
@@ -69,7 +84,15 @@ public class LoginController extends DefaultController {
 
     @FXML
     private void callRegister(ActionEvent event) {
-
+        if (!this.sideRegister.isVisible()) {
+            this.sideRegister.setVisible(true);
+            animationGenerator.applyTranslateAnimationOn(this.sideRegister, 500, DEFAULT_ENDING_X_POSITION, DEFAULT_STARTING_X_POSITION);
+            animationGenerator.applyFadeAnimationOn(this.sideRegister, 600, 0f, 1.0f, null);
+        } else {
+            animationGenerator.applyFadeAnimationOn(this.sideRegister, 600, 1.0f, 0.0f, (e) -> {
+                this.sideRegister.setVisible(false);
+            });
+        }
     }
 
     /**

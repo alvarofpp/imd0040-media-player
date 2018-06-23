@@ -1,36 +1,79 @@
-.parent{
+* {
+    -fx-primary: #2A2E37;
+    -fx-secondary: #FFFF8D;
+    -fx-primarytext: #B2B2B2;
+    -fx-blue: #1976D2;
+    -fx-red: #FF0000;
+    -fx-green: #2E7D32;
+}
+
+.parent {
     -fx-background-color: transparent;
 }
-.player{
+
+.player {
     -fx-background-color: #32465A;
     -fx-background-radius: 5px;
 }
-.orange{
+
+.orange {
     -fx-background-color: #E89511;
     -fx-background-radius: 5px 5px 0px 0px;
 }
-.close-btn{
-    -fx-fill:#fff;
-}
-.close-btn:hover{
-    -fx-fill:#ff3333;
-    -fx-cursor: hand;
-}
-.menu-btn{
+
+.close-btn {
     -fx-fill: #fff;
 }
-.menu-btn:hover{
+
+.close-btn:hover {
+    -fx-fill: #ff3333;
+    -fx-cursor: hand;
+}
+
+.menu-btn {
+    -fx-fill: #fff;
+}
+
+.menu-btn:hover {
     -fx-fill: #E89511;
     -fx-cursor: hand;
 }
 
-.player-btns{
-    -fx-fill:#fff;
+.player-btns {
+    -fx-fill: #fff;
 }
-.player-btns:hover{
-    -fx-fill:#E89511;
-    -fx-cursor:hand;
+
+.player-btns:hover {
+    -fx-fill: #E89511;
+    -fx-cursor: hand;
 }
-.jfx-progress-bar{
-    -fx-accent :#E89511;
+
+.jfx-progress-bar {
+    -fx-accent: #E89511;
+}
+
+.glyph-icon {
+    -fx-fill: -fx-primarytext;
+}
+
+.button {
+    -fx-text-fill: -fx-primarytext;
+    -fx-background-color: -fx-primary;
+    -fx-border-color: -fx-secondary;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-font-size: 13pt;
+}
+
+.button:hover, .button:focused {
+    -fx-border-color: -fx-secondary;
+    -fx-background-color: -fx-secondary;
+    -fx-text-fill: -fx-primary;
+}
+
+.text-field {
+    -fx-font-size: 13pt;
+    -jfx-unfocus-color: #EEEEEE;
+    -jfx-focus-color: #FFFFFF;
+    -fx-prompt-text-fill: #EEEEEE;
 }
