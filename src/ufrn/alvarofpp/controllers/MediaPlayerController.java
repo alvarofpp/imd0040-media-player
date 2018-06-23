@@ -67,10 +67,10 @@ public class MediaPlayerController extends DefaultController {
             }
         });
         mediaplayerui.setOnDragDone((e) -> {
-            MediaPlayerUI.stage.setOpacity(1.0f);
+            MediaPlayerUI.stage.setOpacity(AnimationGenerator.VISIBLE);
         });
         mediaplayerui.setOnMouseReleased((e) -> {
-            MediaPlayerUI.stage.setOpacity(1.0f);
+            MediaPlayerUI.stage.setOpacity(AnimationGenerator.VISIBLE);
         });
     }
 }

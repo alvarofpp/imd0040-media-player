@@ -81,4 +81,19 @@ public class Users extends TableFile {
 
         return false;
     }
+
+    /**
+     * Verifica se usuário existe
+     * @param username Username do usuário
+     * @return Verdadeiro se existir, falso caso contrário
+     */
+    public boolean existUser(String username) {
+        for (User user : this.users) {
+            if (user.getUsername().equals(username)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

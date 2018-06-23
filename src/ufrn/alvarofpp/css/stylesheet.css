@@ -74,6 +74,7 @@
 .text-field {
     -fx-font-size: 13pt;
     -jfx-unfocus-color: #EEEEEE;
+    -fx-text-fill: #FFFFFF;
     -jfx-focus-color: #FFFFFF;
     -fx-prompt-text-fill: #EEEEEE;
 }

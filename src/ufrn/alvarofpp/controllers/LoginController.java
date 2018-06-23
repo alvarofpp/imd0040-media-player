@@ -2,13 +2,8 @@ package ufrn.alvarofpp.controllers;
 
 import java.net.URL;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import javafx.scene.Parent;
-import java.io.IOException;
-import javafx.fxml.FXMLLoader;
-import javafx.stage.StageStyle;
 import javafx.scene.layout.HBox;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -28,15 +23,16 @@ public class LoginController extends DefaultController {
     @FXML
     private HBox loginui;
     /**
-     * Campo que conterá o username do usuário
+     * Campo que conterá o username do usuário, Login e Register respectivamente
      */
     @FXML
-    private JFXTextField loginUsername;
+    private JFXTextField loginUsername, registerUsername;
     /**
-     * Campo que conterá a senha do usuário
+     * Campo que conterá a senha do usuário, Login e Register respectivamente
      */
     @FXML
-    private JFXPasswordField loginPassword;
+    private JFXPasswordField loginPassword, registerPassword;
+
     /**
      * Interface de registrar novo usuário
      */
@@ -46,7 +42,7 @@ public class LoginController extends DefaultController {
     /**
      * Usuários
      */
-    Users users;
+    private Users users;
 
     /**
      * Animações
@@ -96,6 +92,33 @@ public class LoginController extends DefaultController {
         }
     }
 
+    @FXML
+    private void handleRegister(ActionEvent event) {
+        String username = this.registerUsername.getText();
+        String password = this.registerPassword.getText();
+
+        // Caso o usuário já exista
+        if (this.users.existUser(username)) {
+            Alert alertUserExist = new Alert(Alert.AlertType.WARNING);
+            alertUserExist.setTitle("Usuário já existe");
+            alertUserExist.setHeaderText(null);
+            alertUserExist.setContentText("O nome de usuário que você inseriu já está em uso!\nPor favor, tente outro nome de usuário.");
+            alertUserExist.showAndWait();
+            return;
+        }
+
+        // Cria o novo usuário
+        this.users.create(username, password);
+
+        // Alerta
+        Alert alertSuccess = new Alert(Alert.AlertType.INFORMATION);
+        alertSuccess.setTitle("Registro");
+        alertSuccess.setHeaderText("Usuário criado com sucesso!");
+        alertSuccess.setContentText("O usuário de nome " + username + " foi criado com sucesso!");
+
+        alertSuccess.showAndWait();
+    }
+
     /**
      * Torna a interface arrastavel
      */
@@ -117,10 +140,10 @@ public class LoginController extends DefaultController {
             }
         });
         loginui.setOnDragDone((e) -> {
-            LoginUI.stage.setOpacity(1.0f);
+            LoginUI.stage.setOpacity(AnimationGenerator.VISIBLE);
         });
         loginui.setOnMouseReleased((e) -> {
-            LoginUI.stage.setOpacity(1.0f);
+            LoginUI.stage.setOpacity(AnimationGenerator.VISIBLE);
         });
 
     }
