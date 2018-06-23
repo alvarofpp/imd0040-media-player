@@ -12,8 +12,6 @@ import ufrn.alvarofpp.ui.helpers.AnimationGenerator;
 import ufrn.alvarofpp.controllers.helpers.Coordinates;
 
 public class MediaPlayerController extends DefaultController {
-    private static final int DEFAULT_STARTING_X_POSITION = 0;
-    private static final int DEFAULT_ENDING_X_POSITION = -120;
     private AnimationGenerator animationGenerator = null;
 
     /**
@@ -39,10 +37,10 @@ public class MediaPlayerController extends DefaultController {
     private void open_or_close_sidebar(MouseEvent event) {
         if (!sidebar.isVisible()) {
             sidebar.setVisible(true);
-            animationGenerator.applyTranslateAnimationOn(sidebar, 500, DEFAULT_ENDING_X_POSITION, DEFAULT_STARTING_X_POSITION);
-            animationGenerator.applyFadeAnimationOn(sidebar, 600, 0f, 1.0f, null);
+            animationGenerator.applyTranslateAnimationOn(sidebar);
+            animationGenerator.applyFadeAnimationOn(sidebar, AnimationGenerator.INVISIBLE, AnimationGenerator.VISIBLE, null);
         } else {
-            animationGenerator.applyFadeAnimationOn(sidebar, 600, 1.0f, 0.0f, (e) -> {
+            animationGenerator.applyFadeAnimationOn(sidebar, AnimationGenerator.VISIBLE, AnimationGenerator.INVISIBLE, (e) -> {
                 sidebar.setVisible(false);
             });
         }

@@ -22,9 +22,6 @@ import ufrn.alvarofpp.controllers.helpers.Coordinates;
 import ufrn.alvarofpp.ui.helpers.AnimationGenerator;
 
 public class LoginController extends DefaultController {
-    private static final int DEFAULT_STARTING_X_POSITION = 0;
-    private static final int DEFAULT_ENDING_X_POSITION = -120;
-
     /**
      * Interface de usuário
      */
@@ -82,14 +79,18 @@ public class LoginController extends DefaultController {
         }
     }
 
+    /**
+     * Chama a interface de registrar novo usuário
+     * @param event
+     */
     @FXML
     private void callRegister(ActionEvent event) {
         if (!this.sideRegister.isVisible()) {
             this.sideRegister.setVisible(true);
-            animationGenerator.applyTranslateAnimationOn(this.sideRegister, 500, DEFAULT_ENDING_X_POSITION, DEFAULT_STARTING_X_POSITION);
-            animationGenerator.applyFadeAnimationOn(this.sideRegister, 600, 0f, 1.0f, null);
+            animationGenerator.applyTranslateAnimationOn(this.sideRegister);
+            animationGenerator.applyFadeAnimationOn(this.sideRegister, AnimationGenerator.INVISIBLE, AnimationGenerator.VISIBLE, null);
         } else {
-            animationGenerator.applyFadeAnimationOn(this.sideRegister, 600, 1.0f, 0.0f, (e) -> {
+            animationGenerator.applyFadeAnimationOn(this.sideRegister, AnimationGenerator.VISIBLE, AnimationGenerator.INVISIBLE, (e) -> {
                 this.sideRegister.setVisible(false);
             });
         }
