@@ -8,6 +8,8 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 
 import ufrn.alvarofpp.db.models.User;
+import ufrn.alvarofpp.exceptions.FieldNotFoundException;
+import ufrn.alvarofpp.exceptions.UserExistException;
 
 public class Users extends TableFile {
     /**
@@ -27,7 +29,19 @@ public class Users extends TableFile {
      * @param username Nome de usuário
      * @param password Senha de usuário
      */
-    public void create(String username, String password) {
+    public void create(String username, String password) throws FieldNotFoundException,UserExistException {
+        // Verifica se um dos campos está vazio
+        if ("".equals(username)) {
+            throw new FieldNotFoundException("Username");
+        } else if ("".equals(password)) {
+            throw new FieldNotFoundException("Password");
+        }
+
+        // Verifica se usuário já existe
+        if (this.existUser(username)) {
+            throw new UserExistException(username);
+        }
+
         // Novo usuário
         User user = new User(username, password);
 

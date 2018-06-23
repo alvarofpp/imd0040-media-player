@@ -9,6 +9,9 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import ufrn.alvarofpp.db.files.Users;
+import ufrn.alvarofpp.db.models.User;
+import ufrn.alvarofpp.exceptions.FieldNotFoundException;
+import ufrn.alvarofpp.exceptions.UserExistException;
 import ufrn.alvarofpp.ui.LoginUI;
 import javafx.scene.input.MouseEvent;
 import com.jfoenix.controls.JFXTextField;
@@ -97,26 +100,33 @@ public class LoginController extends DefaultController {
         String username = this.registerUsername.getText();
         String password = this.registerPassword.getText();
 
-        // Caso o usuário já exista
-        if (this.users.existUser(username)) {
-            Alert alertUserExist = new Alert(Alert.AlertType.WARNING);
-            alertUserExist.setTitle("Usuário já existe");
-            alertUserExist.setHeaderText(null);
-            alertUserExist.setContentText("O nome de usuário que você inseriu já está em uso!\nPor favor, tente outro nome de usuário.");
-            alertUserExist.showAndWait();
-            return;
+        try {
+            // Cria o novo usuário
+            this.users.create(username, password);
+
+            // Alerta de sucesso
+            Alert alertSuccess = new Alert(Alert.AlertType.INFORMATION);
+            alertSuccess.setTitle("Registro");
+            alertSuccess.setHeaderText("Usuário criado com sucesso!");
+            alertSuccess.setContentText("O usuário de nome " + username + " foi criado com sucesso!");
+            alertSuccess.showAndWait();
+
+            // Fecha a janela
+            animationGenerator.applyFadeAnimationOn(this.sideRegister, AnimationGenerator.VISIBLE, AnimationGenerator.INVISIBLE, (e) -> {
+                this.sideRegister.setVisible(false);
+            });
+            // Limpa os campos
+            this.registerUsername.setText(null);
+            this.registerPassword.setText(null);
+        } catch (FieldNotFoundException | UserExistException e) {
+            // Alerta de erro
+            e.printStackTrace();
+            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+            alertWarning.setTitle("Alerta");
+            alertWarning.setHeaderText(null);
+            alertWarning.setContentText(e.getMessage());
+            alertWarning.showAndWait();
         }
-
-        // Cria o novo usuário
-        this.users.create(username, password);
-
-        // Alerta
-        Alert alertSuccess = new Alert(Alert.AlertType.INFORMATION);
-        alertSuccess.setTitle("Registro");
-        alertSuccess.setHeaderText("Usuário criado com sucesso!");
-        alertSuccess.setContentText("O usuário de nome " + username + " foi criado com sucesso!");
-
-        alertSuccess.showAndWait();
     }
 
     /**
