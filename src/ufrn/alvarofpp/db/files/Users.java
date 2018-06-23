@@ -65,4 +65,20 @@ public class Users extends TableFile {
         }
 
     }
+
+    /**
+     * Válida um usuário a partir do seu username e senha
+     * @param username Username do usuário
+     * @param password Senha do usuário
+     * @return Verdadeiro se for válido, falso caso contrário
+     */
+    public boolean validateUser(String username, String password) {
+        for (User user : this.users) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

@@ -60,7 +60,7 @@ public class LoginController extends DefaultController {
         String username = this.username.getText();
         String password = this.password.getText();
 
-        if (username.equals("alvarofpp") && password.equals("senha123")) {
+        if (this.users.validateUser(username, password)) {
             System.out.println("Autenticado");
         } else {
             System.out.println("Não autenticado");
