@@ -4,14 +4,14 @@
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.geometry.Insets?>
 <HBox fx:id="loginui" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-      minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" styleClass="parent"
+      minWidth="-Infinity" prefHeight="340.0" prefWidth="730.0" styleClass="parent"
       stylesheets="@../../css/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.121"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="ufrn.alvarofpp.controllers.LoginController">
     <children>
@@ -51,13 +51,15 @@
                 <JFXButton layoutX="190.0" layoutY="248.0" onAction="#callRegister" prefHeight="40.0" prefWidth="100.0"
                            styleClass="login-button" text="Register"/>
             </children>
+            <HBox.margin>
+                <Insets top="10.0"/>
+            </HBox.margin>
         </Pane>
         <!-- Tela de registro de novo usuário -->
-        <Pane fx:id="sideRegister" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="320.0"
-              prefWidth="350.0" minHeight="-Infinity" minWidth="-Infinity" styleClass="player"
-              HBox.hgrow="NEVER">
+        <Pane fx:id="sideRegister" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+              minWidth="-Infinity" prefHeight="320.0" prefWidth="350.0" styleClass="player" HBox.hgrow="NEVER">
             <HBox.margin>
-                <Insets left="5.0"/>
+                <Insets left="5.0" top="10.0"/>
             </HBox.margin>
             <children>
                 <!-- Text -->
