@@ -7,13 +7,12 @@ import javafx.scene.layout.Pane;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import ufrn.alvarofpp.db.models.User;
 import ufrn.alvarofpp.ui.MediaPlayerUI;
-import ufrn.alvarofpp.ui.helpers.AnimationGenerator;
 import ufrn.alvarofpp.controllers.helpers.Coordinates;
+import ufrn.alvarofpp.controllers.helpers.AnimationGenerator;
 
 public class MediaPlayerController extends DefaultController {
-    private AnimationGenerator animationGenerator = null;
-
     /**
      * Interface de usuário
      */
@@ -24,6 +23,15 @@ public class MediaPlayerController extends DefaultController {
      */
     @FXML
     private Pane sidebar;
+    /**
+     * Animações
+     */
+    private AnimationGenerator animationGenerator;
+
+    /**
+     * Usuário logado
+     */
+    User user;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -47,7 +55,7 @@ public class MediaPlayerController extends DefaultController {
     }
 
     /**
-     * Torna a interface arrastavel
+     * Torna a interface arrastavel.
      */
     @Override
     protected void makeStageDrageable() {
@@ -72,5 +80,9 @@ public class MediaPlayerController extends DefaultController {
         mediaplayerui.setOnMouseReleased((e) -> {
             MediaPlayerUI.stage.setOpacity(AnimationGenerator.VISIBLE);
         });
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -2,22 +2,25 @@ package ufrn.alvarofpp.controllers;
 
 import java.net.URL;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.HBox;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import ufrn.alvarofpp.db.files.Users;
-import ufrn.alvarofpp.db.models.User;
-import ufrn.alvarofpp.exceptions.FieldNotFoundException;
-import ufrn.alvarofpp.exceptions.UserExistException;
+import javafx.stage.Stage;
 import ufrn.alvarofpp.ui.LoginUI;
+import ufrn.alvarofpp.db.models.User;
+import ufrn.alvarofpp.db.files.Users;
 import javafx.scene.input.MouseEvent;
+import javafx.application.Application;
+import ufrn.alvarofpp.ui.MediaPlayerUI;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXPasswordField;
+import ufrn.alvarofpp.controllers.helpers.Alerts;
+import ufrn.alvarofpp.exceptions.UserExistException;
 import ufrn.alvarofpp.controllers.helpers.Coordinates;
-import ufrn.alvarofpp.ui.helpers.AnimationGenerator;
+import ufrn.alvarofpp.exceptions.FieldNotFoundException;
+import ufrn.alvarofpp.controllers.helpers.AnimationGenerator;
 
 public class LoginController extends DefaultController {
     /**
@@ -35,22 +38,23 @@ public class LoginController extends DefaultController {
      */
     @FXML
     private JFXPasswordField loginPassword, registerPassword;
-
     /**
      * Interface de registrar novo usuário
      */
     @FXML
     private Pane sideRegister;
-
     /**
      * Usuários
      */
     private Users users;
-
     /**
      * Animações
      */
     private AnimationGenerator animationGenerator;
+    /**
+     * Alertas
+     */
+    private Alerts alerts;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -60,10 +64,11 @@ public class LoginController extends DefaultController {
         this.sideRegister.setVisible(false);
         this.users = new Users();
         this.animationGenerator = new AnimationGenerator();
+        this.alerts = new Alerts();
     }
 
     /**
-     * Realiza o login no sistema
+     * Realiza o login no sistema.
      * @param event
      */
     @FXML
@@ -71,15 +76,28 @@ public class LoginController extends DefaultController {
         String username = this.loginUsername.getText();
         String password = this.loginPassword.getText();
 
-        if (this.users.validateUser(username, password)) {
-            System.out.println("Autenticado");
-        } else {
-            System.out.println("Não autenticado");
+        try {
+            if (this.users.validateUser(username, password)) {
+                // Pega o usuário que se autenticou
+                User user = this.users.getUser(username);
+                // Chama a nova tela
+                MediaPlayerUI mediaPlayerUI = new MediaPlayerUI();
+                mediaPlayerUI.start(new Stage());
+                // Envia o usuário autenticado
+                // Fecha a janela atual
+                LoginUI.stage.close();
+            } else {
+                this.alerts.show(1, "Aviso", null, "Usuário " + username + " não foi encontrado no sistema.");
+            }
+        } catch (FieldNotFoundException e) {
+            this.alerts.show(2, "Alerta!!!", null, e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     /**
-     * Chama a interface de registrar novo usuário
+     * Chama a interface de registrar novo usuário.
      * @param event
      */
     @FXML
@@ -95,6 +113,10 @@ public class LoginController extends DefaultController {
         }
     }
 
+    /**
+     * Realiza o processo de registro de um novo usuário.
+     * @param event
+     */
     @FXML
     private void handleRegister(ActionEvent event) {
         String username = this.registerUsername.getText();
@@ -105,11 +127,9 @@ public class LoginController extends DefaultController {
             this.users.create(username, password);
 
             // Alerta de sucesso
-            Alert alertSuccess = new Alert(Alert.AlertType.INFORMATION);
-            alertSuccess.setTitle("Registro");
-            alertSuccess.setHeaderText("Usuário criado com sucesso!");
-            alertSuccess.setContentText("O usuário de nome " + username + " foi criado com sucesso!");
-            alertSuccess.showAndWait();
+            this.alerts.show(1, "Registro",
+                    "Usuário criado com sucesso!",
+                    "O usuário de nome " + username + " foi criado com sucesso!");
 
             // Fecha a janela
             animationGenerator.applyFadeAnimationOn(this.sideRegister, AnimationGenerator.VISIBLE, AnimationGenerator.INVISIBLE, (e) -> {
@@ -118,19 +138,15 @@ public class LoginController extends DefaultController {
             // Limpa os campos
             this.registerUsername.setText(null);
             this.registerPassword.setText(null);
+
         } catch (FieldNotFoundException | UserExistException e) {
             // Alerta de erro
-            e.printStackTrace();
-            Alert alertWarning = new Alert(Alert.AlertType.WARNING);
-            alertWarning.setTitle("Alerta");
-            alertWarning.setHeaderText(null);
-            alertWarning.setContentText(e.getMessage());
-            alertWarning.showAndWait();
+            this.alerts.show(2, "Alerta!!!", null, e.getMessage());
         }
     }
 
     /**
-     * Torna a interface arrastavel
+     * Torna a interface arrastavel.
      */
     @Override
     protected void makeStageDrageable() {
@@ -155,7 +171,6 @@ public class LoginController extends DefaultController {
         loginui.setOnMouseReleased((e) -> {
             LoginUI.stage.setOpacity(AnimationGenerator.VISIBLE);
         });
-
     }
-    
+
 }

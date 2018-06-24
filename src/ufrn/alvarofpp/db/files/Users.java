@@ -64,7 +64,7 @@ public class Users extends TableFile {
      */
     @Override
     public void readFile() {
-        String line = "";
+        String line;
         String[] inputs;
 
         try (BufferedReader br = new BufferedReader(new FileReader(this.path))) {
@@ -86,7 +86,15 @@ public class Users extends TableFile {
      * @param password Senha do usuário
      * @return Verdadeiro se for válido, falso caso contrário
      */
-    public boolean validateUser(String username, String password) {
+    public boolean validateUser(String username, String password) throws FieldNotFoundException {
+        // Verifica se um dos campos está vazio
+        if ("".equals(username)) {
+            throw new FieldNotFoundException("Username");
+        } else if ("".equals(password)) {
+            throw new FieldNotFoundException("Password");
+        }
+
+        // Procura o usuário
         for (User user : this.users) {
             if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
                 return true;
@@ -101,7 +109,8 @@ public class Users extends TableFile {
      * @param username Username do usuário
      * @return Verdadeiro se existir, falso caso contrário
      */
-    public boolean existUser(String username) {
+    private boolean existUser(String username) {
+        // Procura o usuário
         for (User user : this.users) {
             if (user.getUsername().equals(username)) {
                 return true;
@@ -109,5 +118,21 @@ public class Users extends TableFile {
         }
 
         return false;
+    }
+
+    /**
+     * Pega o objeto referente ao usuário desejado.
+     * @param username Nome de usuário
+     * @return O objeto referente ao usuário em questão ou null caso o usuário não exista
+     */
+    public User getUser(String username) {
+        // Procura o usuário
+        for (User user : this.users) {
+            if (user.getUsername().equals(username)) {
+                return user;
+            }
+        }
+
+        return null;
     }
 }
