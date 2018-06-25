@@ -11,14 +11,14 @@
 <?import javafx.scene.text.Font?>
 
 <HBox fx:id="loginui" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-      minWidth="-Infinity" prefHeight="340.0" prefWidth="730.0" styleClass="parent"
+      minWidth="-Infinity" prefHeight="330.0" prefWidth="715.0" styleClass="parent"
       stylesheets="@../../css/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.121"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="ufrn.alvarofpp.controllers.LoginController">
     <!-- Tela de login -->
     <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0"
           prefWidth="350.0" styleClass="player" HBox.hgrow="NEVER">
         <HBox.margin>
-            <Insets top="10.0"/>
+            <Insets top="5.0"/>
         </HBox.margin>
         <!-- Button Close -->
         <FontAwesomeIconView glyphName="CLOSE" layoutX="330.0" layoutY="20.0" onMouseClicked="#handleExitApp"
@@ -56,7 +56,7 @@
     <Pane fx:id="sideRegister" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
           minWidth="-Infinity" prefHeight="320.0" prefWidth="350.0" styleClass="player" HBox.hgrow="NEVER">
         <HBox.margin>
-            <Insets left="5.0" top="10.0"/>
+            <Insets left="5.0" top="5.0"/>
         </HBox.margin>
         <!-- Text -->
         <Label alignment="BASELINE_CENTER" layoutY="30.0" maxHeight="-Infinity" maxWidth="-Infinity"
