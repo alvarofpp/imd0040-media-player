@@ -7,6 +7,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javazoom.jl.player.Player;
@@ -48,33 +50,65 @@ public class MediaPlayerController extends DefaultController {
      * Usuário logado
      */
     private User user;
+    /**
+     * Músicas do BD
+     */
     Musics musics = new Musics();
+    /**
+    * Bool usado pelo play
+    */
     private boolean press = true;
+    /**
+     * Reprodutor de música
+     */
     PlayerP player = null;
     
-
+    public void initMusicList(){
+        ObservableList data =  FXCollections.observableArrayList();
+        for(Music music : musics.getMusics())
+            data.add(music.getName());
+        musicList.setItems(data);
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         coordinates = new Coordinates();
         makeStageDrageable();
         animationGenerator = new AnimationGenerator();
-
+        initMusicList();
+        
         // Testes
-        this.user = new User("alvarofpp", "alvaro123");
+        this.user = new User("israelfontes", "israel123");
         this.prepareEnv();
+       
     }
-    
+    String temp;
     @FXML
     private void handlePlay(){
         if(player == null){
-            player = new PlayerP(musics.nextMusic().getPath());
-        }
-        if(press == true){
-            player.Play();
-            press = false;
+            if(musicList.getSelectionModel().getSelectedItem() == null){
+                player = new PlayerP(musics.nextMusic().getPath());
+                player.Play();
+            }else{
+                player = new PlayerP(musics.getMusic(musicList.getSelectionModel().getSelectedItem().toString()).getPath());
+                temp = musics.getMusic(musicList.getSelectionModel().getSelectedItem().toString()).getPath();
+                player.Play();
+            }
         }else{
-            player.Pause();
-            press = true;
+            if(musics.getMusic(musicList.getSelectionModel().getSelectedItem().toString()).getPath() != temp && musicList.getSelectionModel().getSelectedItem() != null){
+                    player.Stop();
+                    temp = musics.getMusic(musicList.getSelectionModel().getSelectedItem().toString()).getPath();
+                    player = new PlayerP(temp);
+                    player.Play();
+            }else{
+                if(press == true){
+                    player.Pause();
+                    press = false;
+                }else{
+                    player.Play();
+                    press = true;
+                }
+            }
         }
     }
     
@@ -83,7 +117,6 @@ public class MediaPlayerController extends DefaultController {
        Music music = musics.nextMusic();
         
        if( music != null ){
-           
            if(player!=null) player.Stop();
            player = new PlayerP(music.getPath());
            player.Play();

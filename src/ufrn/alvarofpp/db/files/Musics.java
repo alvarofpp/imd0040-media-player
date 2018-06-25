@@ -69,7 +69,7 @@ public class Musics extends TableFile{
         }
     }    
 
-    private boolean existMusic(String musicname) {
+    public boolean existMusic(String musicname) {
         // Procura a música
         if (this.getMusic(musicname) != null) {
             return true;
@@ -89,6 +89,8 @@ public class Musics extends TableFile{
         }
         return null;
     }
+    
+    public Vector<Music> getMusics(){ return musics; }
     
     public Music getMusic(String musicname) {
         // Procura a música
