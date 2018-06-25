@@ -37,7 +37,6 @@ public class MediaPlayerController extends DefaultController {
     public void initialize(URL url, ResourceBundle rb) {
         coordinates = new Coordinates();
         makeStageDrageable();
-        sidebar.setVisible(false);
         animationGenerator = new AnimationGenerator();
     }
 

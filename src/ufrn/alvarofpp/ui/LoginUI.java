@@ -14,7 +14,6 @@ public class LoginUI extends Application {
     @Override
     public void start(Stage stage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("xml/login.fxml"));
-        stage.setTitle("Log in");
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
         stage.initStyle(StageStyle.TRANSPARENT);
