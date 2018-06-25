@@ -2,6 +2,8 @@ package ufrn.alvarofpp.controllers;
 
 import java.net.URL;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import java.util.ResourceBundle;
@@ -24,6 +26,16 @@ public class MediaPlayerController extends DefaultController {
     @FXML
     private Pane sidebar;
     /**
+     * Label de nome de usuário, nome de playlist, nome da música
+     */
+    @FXML
+    private Label usernameLabel, playlistLabel, musicLabel;
+    /**
+     * Label de nome de usuário, nome de playlist, nome da música
+     */
+    @FXML
+    private ListView musicList, playlistList;
+    /**
      * Animações
      */
     private AnimationGenerator animationGenerator;
@@ -31,17 +43,38 @@ public class MediaPlayerController extends DefaultController {
     /**
      * Usuário logado
      */
-    User user;
+    private User user;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         coordinates = new Coordinates();
         makeStageDrageable();
         animationGenerator = new AnimationGenerator();
+
+        // Testes
+        this.user = new User("alvarofpp", "alvaro123");
+        this.prepareEnv();
     }
 
+    /**
+     * Prepara o ambiente da view
+     */
+    private void prepareEnv() {
+        // Nome do usuário
+        this.usernameLabel.setText(this.user.getUsername());
+        // Playlist inicialmente é null
+        this.playlistLabel.setText(null);
+        // Música inicialmente é null
+        this.musicLabel.setText("Não está tocando nada");
+        // Upload das músicas
+    }
+
+    /**
+     * Mostra o sidebar
+     * @param event
+     */
     @FXML
-    private void open_or_close_sidebar(MouseEvent event) {
+    private void showSidebar(MouseEvent event) {
         if (!sidebar.isVisible()) {
             sidebar.setVisible(true);
             animationGenerator.applyTranslateAnimationOn(sidebar);
