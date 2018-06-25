@@ -66,12 +66,14 @@ public class PlayerP {
         };
         thread.start();
     }
-    
+    public void Stop(){
+        if(thread != null) thread.stop();
+        player.close();
+    }
     public void Pause(){
             if(thread!=null) thread.stop();
             try {
                 pauseLocate = input.available();
-                System.out.println(pauseLocate);
             } catch (IOException ex) {
                 Logger.getLogger(PlayerP.class.getName()).log(Level.SEVERE, null, ex);
             }

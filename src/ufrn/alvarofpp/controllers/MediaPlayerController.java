@@ -9,6 +9,7 @@ import javafx.scene.layout.Pane;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javazoom.jl.player.Player;
 import ufrn.alvarofpp.PlayerP;
 import ufrn.alvarofpp.db.models.User;
 import ufrn.alvarofpp.ui.MediaPlayerUI;
@@ -49,9 +50,8 @@ public class MediaPlayerController extends DefaultController {
     private User user;
     Musics musics = new Musics();
     private boolean press = true;
-    
-    
     PlayerP player = null;
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -69,7 +69,6 @@ public class MediaPlayerController extends DefaultController {
         if(player == null){
             player = new PlayerP(musics.nextMusic().getPath());
         }
-        
         if(press == true){
             player.Play();
             press = false;
@@ -82,20 +81,23 @@ public class MediaPlayerController extends DefaultController {
     @FXML
     private void handleNextMusic(){
        Music music = musics.nextMusic();
-        if( music!=null ){
-            player.Pause();
-            player = new PlayerP(music.getPath());
-            System.out.println(music.getPath());
-        }
+        
+       if( music != null ){
+           
+           if(player!=null) player.Stop();
+           player = new PlayerP(music.getPath());
+           player.Play();
+       }
      }
     
     @FXML
     private void handleBackMusic(){
         Music music = musics.backMusic();
+        
         if( music!=null ){
-            System.out.println(music.getPath());
-            player.Pause();;
+            if(player != null) player.Stop();
             player = new PlayerP(music.getPath());
+            player.Play();
         } 
     }
     /**

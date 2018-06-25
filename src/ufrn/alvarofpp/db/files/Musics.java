@@ -14,7 +14,7 @@ import ufrn.alvarofpp.exceptions.UserExistException;
 public class Musics extends TableFile{
     
     private Vector<Music> musics;
-    private int position = 0;
+    private int position = -1;
     
     public Musics(){
         this.filename = "musics.csv";
@@ -77,17 +77,15 @@ public class Musics extends TableFile{
         return false;
     }
     public Music nextMusic(){
-        if(position <= musics.size()){
-            position++;
-            return musics.elementAt(position);
+        if(position < musics.size()-1){
+            return musics.elementAt(++position);
         }
         return null;
     } 
     
     public Music backMusic(){
         if(position > 0){
-            position--;
-            return musics.elementAt(position);
+            return musics.elementAt(--position);
         }
         return null;
     }
