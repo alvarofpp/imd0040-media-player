@@ -83,6 +83,8 @@ public class PlayerMusic {
     }
 
     public void changeMusic(String path) {
+        if (thread != null) thread.stop();
+        player.close();
         this.pathMusic = path;
     }
 }

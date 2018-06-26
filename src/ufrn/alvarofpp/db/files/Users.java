@@ -50,7 +50,7 @@ public class Users extends TableFile {
         try {
             // Salva o novo usuário
             BufferedWriter writer = new BufferedWriter(new FileWriter(this.path, true));
-            writer.write(user.getUsername() + this.delimiter + user.getPassword()+"\n");
+            writer.write("\n" + user.getUsername() + this.delimiter + user.getPassword());
             writer.close();
 
             // Atualiza a lista de usuários

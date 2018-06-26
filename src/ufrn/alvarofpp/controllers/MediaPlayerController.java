@@ -237,7 +237,6 @@ public class MediaPlayerController extends DefaultController {
             player.stop();
         }
         player.changeMusic(music.getFullPath());
-        player.play();
 
         // Atualiza label de música
         this.musicLabel.setText(music.getName());

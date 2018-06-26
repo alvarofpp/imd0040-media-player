@@ -82,7 +82,7 @@ public class Musics extends TableFile {
                     + this.delimiter + music.getId();
             // Salva a nova música
             BufferedWriter writer = new BufferedWriter(new FileWriter(this.path, true));
-            writer.write(newLine + "\n");
+            writer.write("\n" + newLine);
             writer.close();
 
             // Atualiza a lista de músicas
