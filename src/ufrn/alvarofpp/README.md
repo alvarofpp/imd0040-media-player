@@ -5,6 +5,7 @@
   - **data**: Arquivos de dados.
   - **files**: Classes para manipular os dados salvos.
   - **models**: Classes que representam conjuntos de dados.
+  - **helpers**: Classes que irão ajudar os *models* (hash, etc).
 - **exceptions**: Exceções customizadas.
 - **img**: Imagens usadas no sistema.
 - **ui**: Contêm as *views* que o usuário irá interagir.
