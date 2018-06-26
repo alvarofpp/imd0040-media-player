@@ -97,7 +97,7 @@ public class MediaPlayerController extends DefaultController {
         this.animationGenerator = new AnimationGenerator();
         this.alerts = new Alerts();
 
-        // Testes
+        // Usuário logado
         this.user = LoginController.user;
 
         // Músicas do usuário
