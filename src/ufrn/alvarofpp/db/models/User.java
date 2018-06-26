@@ -12,10 +12,35 @@ public class User {
      * Senha do usuário
      */
     private String password;
+    /**
+     * Senha do usuário
+     */
+    private int type;
 
+    /**
+     * Usuários cadastrados
+     * @param username
+     * @param password
+     */
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        this.type = 2;
+    }
+
+    /**
+     * Usuários admin
+     * @param username
+     * @param password
+     */
+    public User(String username, String password, String type) {
+        this.username = username;
+        this.password = password;
+        this.type = Integer.parseInt(type);
+    }
+
+    public boolean isAdmin() {
+        return this.type==1;
     }
 
     public String getUsername() {

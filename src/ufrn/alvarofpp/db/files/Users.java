@@ -73,7 +73,7 @@ public class Users extends TableFile {
             // Percorre o arquivo
             while ((line = br.readLine()) != null) {
                 inputs = line.split(this.delimiter);
-                this.users.add(new User(inputs[0], inputs[1]));
+                this.users.add(new User(inputs[0], inputs[1], inputs[2]));
             }
             br.close();
         } catch (IOException e) {

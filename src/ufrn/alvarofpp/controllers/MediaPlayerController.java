@@ -46,7 +46,7 @@ public class MediaPlayerController extends DefaultController {
      * Label de nome de usuário, nome de playlist, nome da música
      */
     @FXML
-    private Label usernameLabel, playlistLabel, musicLabel;
+    private Label usernameLabel, playlistLabel, musicLabel, playListLabel;
     /**
      * Label de nome de usuário, nome de playlist, nome da música
      */
@@ -113,6 +113,11 @@ public class MediaPlayerController extends DefaultController {
         // Música inicialmente é null
         this.musicLabel.setText("Não está tocando nada");
 
+        // Playlist
+        if (!this.user.isAdmin()) {
+            this.playListLabel.setVisible(false);
+            this.playlistList.setVisible(false);
+        }
     }
 
     private void updateListMusic() {

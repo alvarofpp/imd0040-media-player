@@ -85,7 +85,7 @@
         <!-- Linha -->
         <Line endX="100.0" fill="#f59a12" layoutX="150.0" layoutY="380.0" startX="-100.0" stroke="#e89511"/>
         <!-- Lista de playlists -->
-        <Label layoutX="20.0" layoutY="390.0" text="Playlists" textFill="WHITE">
+        <Label fx:id="playListLabel" layoutX="20.0" layoutY="390.0" text="Playlists" textFill="WHITE">
             <font>
                 <Font name="Ebrima" size="18.0"/>
             </font>
