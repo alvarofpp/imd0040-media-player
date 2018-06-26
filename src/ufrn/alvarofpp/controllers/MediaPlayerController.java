@@ -98,7 +98,7 @@ public class MediaPlayerController extends DefaultController {
         this.alerts = new Alerts();
 
         // Testes
-        this.user = new User("alvarofpp", "alvaro123");
+        this.user = LoginController.user;
 
         // Músicas do usuário
         this.musics = new Musics(this.user.getUsername());
