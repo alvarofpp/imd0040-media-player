@@ -234,7 +234,11 @@ public class MediaPlayerController extends DefaultController {
         if (player != null) {
             player.stop();
         }
-        player.changeMusic(music.getFullPath());
+        if (this.player != null) {
+            player.changeMusic(music.getFullPath());
+        } else {
+            player = new PlayerMusic(music.getFullPath());
+        }
         player.play();
         this.iconPlay.setIcon(FontAwesomeIcon.PAUSE);
 
