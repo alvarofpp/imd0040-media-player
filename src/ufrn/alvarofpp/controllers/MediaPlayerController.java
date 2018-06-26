@@ -148,6 +148,7 @@ public class MediaPlayerController extends DefaultController {
 
     /**
      * Passa a música
+     *
      * @param event
      */
     @FXML
@@ -163,6 +164,7 @@ public class MediaPlayerController extends DefaultController {
 
     /**
      * Volta a música
+     *
      * @param event
      */
     @FXML

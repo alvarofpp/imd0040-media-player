@@ -28,7 +28,6 @@ public class Playlist {
      * @param username Nome do usuário
      */
     public Playlist(String username) {
-        this.musics = musics;
     }
 
     /**
@@ -40,7 +39,9 @@ public class Playlist {
         if (position < musics.size() - 1) {
             return musics.elementAt(++position);
         }
-        return null;
+
+        this.position = 0;
+        return this.musics.firstElement();
     }
 
     /**
@@ -52,7 +53,9 @@ public class Playlist {
         if (position > 0) {
             return musics.elementAt(--position);
         }
-        return null;
+
+        this.position = this.musics.size()-1;
+        return this.musics.lastElement();
     }
 
     public Music getMusic(String name) {
