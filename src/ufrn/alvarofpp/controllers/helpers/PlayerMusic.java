@@ -2,6 +2,7 @@ package ufrn.alvarofpp.controllers.helpers;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,15 +34,13 @@ public class PlayerMusic {
 
     public PlayerMusic(String pathMusic) {
         this.pathMusic = pathMusic;
+        this.changeMusic(pathMusic);
     }
 
     private Thread thread = null;
 
     public void play() {
         try {
-            input = new FileInputStream(pathMusic);
-            BufferedInputStream buffer = new BufferedInputStream(input);
-            player = new Player(buffer);
             if (pauseLocate > 0) {
                 input.skip(timeMusic - pauseLocate);
             } else {
@@ -50,8 +49,6 @@ public class PlayerMusic {
 
         } catch (IOException ex) {
             Logger.getLogger(PlayerMusic.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JavaLayerException e) {
-            e.printStackTrace();
         }
 
         thread = new Thread() {
@@ -67,24 +64,37 @@ public class PlayerMusic {
     }
 
     public void stop() {
-        if (thread != null) thread.stop();
-        player.close();
+        if (thread != null) {
+            thread.stop();
+        }
     }
 
     public void pause() {
-        if (thread != null) thread.stop();
+        if (thread != null) {
+            thread.stop();
+        }
         try {
             pauseLocate = input.available();
         } catch (IOException ex) {
             Logger.getLogger(PlayerMusic.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        player.close();
     }
 
     public void changeMusic(String path) {
-        if (thread != null) thread.stop();
-        player.close();
+        if (thread != null) {
+            thread.stop();
+        }
         this.pathMusic = path;
+        this.pauseLocate = 0;
+
+        try {
+            input = new FileInputStream(pathMusic);
+            BufferedInputStream buffer = new BufferedInputStream(input);
+            player = new Player(buffer);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (JavaLayerException e) {
+            e.printStackTrace();
+        }
     }
 }

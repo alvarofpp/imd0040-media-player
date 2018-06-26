@@ -71,6 +71,9 @@ public class Playlist {
      * @return
      */
     public Music getActual() {
+        if (this.position < 0) {
+            this.position = 0;
+        }
         return this.musics.elementAt(this.position);
     }
 

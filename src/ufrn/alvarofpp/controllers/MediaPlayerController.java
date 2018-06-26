@@ -127,6 +127,31 @@ public class MediaPlayerController extends DefaultController {
         this.musicList.setItems(listaItens);
     }
 
+    @FXML
+    private void handleChangeMusic(MouseEvent event) {
+        // Música selecionada na playlist
+        String musicSelectedName = this.musicList.getSelectionModel().getSelectedItem().toString();
+        Music musicSelected = this.playlist.getMusic(musicSelectedName);
+
+        // Muda a label de música
+        this.musicLabel.setText(musicSelected.getName());
+
+        // Quando o tocador de música ainda está vazio
+        if (this.player == null) {
+            this.playlist.setPosition(this.musicList.getSelectionModel().getSelectedIndex());
+            this.player = new PlayerMusic(musicSelected.getFullPath());
+            this.lastMusic = musicSelected.getFullPath();
+            this.player.play();
+            this.iconPlay.setIcon(FontAwesomeIcon.PAUSE);
+        } else if (!musicSelected.getFullPath().equals(this.lastMusic)) {
+            this.player.stop();
+            this.lastMusic = musicSelected.getFullPath();
+            this.player.changeMusic(this.lastMusic);
+            this.player.play();
+            this.iconPlay.setIcon(FontAwesomeIcon.PAUSE);
+        }
+    }
+
     /**
      * Adiciona uma nova música
      * @param event
@@ -162,50 +187,23 @@ public class MediaPlayerController extends DefaultController {
      */
     @FXML
     private void handlePlay(MouseEvent event) {
-        // Música selecionada na playlist
-        String musicSelectedName;
-        Music musicSelected = null;
-
-        // Verifica se teve item selecionado na playlist
-        if (this.musicList.getSelectionModel().getSelectedItem() != null) {
-            musicSelectedName = this.musicList.getSelectionModel().getSelectedItem().toString();
-            musicSelected = this.playlist.getMusic(musicSelectedName);
-            // Muda a label de música
-            this.musicLabel.setText(musicSelected.getName());
-        }
-
         // Quando o tocador de música ainda está vazio
         if (this.player == null) {
-            // Caso não tenha item selecionado na lista
-            if (musicSelected == null) {
-                this.player = new PlayerMusic(this.playlist.next().getFullPath());
-                // Muda a label de música
-                this.musicLabel.setText(this.playlist.getActual().getName());
-            } else {
-                this.player = new PlayerMusic(musicSelected.getFullPath());
-                this.lastMusic = musicSelected.getFullPath();
-            }
+            this.player = new PlayerMusic(this.playlist.next().getFullPath());
             this.player.play();
             this.iconPlay.setIcon(FontAwesomeIcon.PAUSE);
+            this.musicLabel.setText(this.playlist.getActual().getName());
+        } else if (this.press) {
+            this.player.pause();
+            this.press = false;
+            this.iconPlay.setIcon(FontAwesomeIcon.PLAY);
         } else {
-            if ((musicSelected != null) && (!musicSelected.getFullPath().equals(this.lastMusic))) {
-                this.player.stop();
-                this.lastMusic = musicSelected.getFullPath();
-                this.player.changeMusic(this.lastMusic);
-                this.player.play();
-                this.iconPlay.setIcon(FontAwesomeIcon.PAUSE);
-            } else {
-                if (this.press) {
-                    this.player.pause();
-                    this.press = false;
-                    this.iconPlay.setIcon(FontAwesomeIcon.PLAY);
-                } else {
-                    this.player.play();
-                    this.press = true;
-                    this.iconPlay.setIcon(FontAwesomeIcon.PAUSE);
-                }
-            }
+            this.player.play();
+            this.press = true;
+            this.iconPlay.setIcon(FontAwesomeIcon.PAUSE);
         }
+        // Muda a label de música
+        this.musicLabel.setText(this.playlist.getActual().getName());
     }
 
     /**
@@ -237,9 +235,15 @@ public class MediaPlayerController extends DefaultController {
             player.stop();
         }
         player.changeMusic(music.getFullPath());
+        player.play();
+        this.iconPlay.setIcon(FontAwesomeIcon.PAUSE);
 
-        // Atualiza label de música
-        this.musicLabel.setText(music.getName());
+        // Muda a label de música
+        this.musicLabel.setText(this.playlist.getActual().getName());
+
+        if (!this.press) {
+            this.press = true;
+        }
     }
 
     /**
