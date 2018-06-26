@@ -56,6 +56,11 @@ public class LoginController extends DefaultController {
      */
     private Alerts alerts;
 
+    /**
+     * Usuário logado
+     */
+    static User user;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         //preference = Preferences.getPreferences();
@@ -79,7 +84,7 @@ public class LoginController extends DefaultController {
         try {
             if (this.users.validateUser(username, password)) {
                 // Pega o usuário que se autenticou
-                User user = this.users.getUser(username);
+                this.user = this.users.getUser(username);
                 // Chama a nova tela
                 MediaPlayerUI mediaPlayerUI = new MediaPlayerUI();
                 mediaPlayerUI.start(new Stage());
