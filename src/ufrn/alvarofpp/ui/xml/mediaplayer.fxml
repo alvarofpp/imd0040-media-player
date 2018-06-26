@@ -44,7 +44,7 @@
         <!-- Botões de controle da playlist -->
         <FontAwesomeIconView glyphName="ARROW_LEFT" layoutX="88.0" layoutY="414.0" size="2em"
                              styleClass="player-btns" onMouseClicked="#handleBackMusic"/>
-        <FontAwesomeIconView glyphName="PLAY" layoutX="180.0" layoutY="414.0" size="2em"
+        <FontAwesomeIconView fx:id="iconPlay" glyphName="PLAY" layoutX="180.0" layoutY="414.0" size="2em"
                              styleClass="player-btns" onMouseClicked="#handlePlay"/>
         <FontAwesomeIconView glyphName="ARROW_RIGHT" layoutX="270.0" layoutY="414.0" size="2em"
                              styleClass="player-btns" onMouseClicked="#handleNextMusic"/>

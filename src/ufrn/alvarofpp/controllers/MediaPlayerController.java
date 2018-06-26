@@ -2,6 +2,8 @@ package ufrn.alvarofpp.controllers;
 
 import java.net.URL;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -44,6 +46,11 @@ public class MediaPlayerController extends DefaultController {
      */
     @FXML
     private ListView musicList, playlistList;
+    /**
+     * Ícone do play
+     */
+    @FXML
+    private FontAwesomeIconView iconPlay;
     /**
      * Animações
      */
@@ -132,19 +139,23 @@ public class MediaPlayerController extends DefaultController {
                 this.lastMusic = musicSelected.getFullPath();
             }
             this.player.play();
+            this.iconPlay.setIcon(FontAwesomeIcon.PAUSE);
         } else {
             if ((musicSelected != null) && (!musicSelected.getFullPath().equals(this.lastMusic))) {
                 this.player.stop();
                 this.lastMusic = musicSelected.getFullPath();
                 this.player.changeMusic(this.lastMusic);
                 this.player.play();
+                this.iconPlay.setIcon(FontAwesomeIcon.PAUSE);
             } else {
                 if (this.press) {
                     this.player.pause();
                     this.press = false;
+                    this.iconPlay.setIcon(FontAwesomeIcon.PLAY);
                 } else {
                     this.player.play();
                     this.press = true;
+                    this.iconPlay.setIcon(FontAwesomeIcon.PAUSE);
                 }
             }
         }
