@@ -137,8 +137,8 @@ public class MediaPlayerController extends DefaultController {
         this.musicLabel.setText(musicSelected.getName());
 
         // Quando o tocador de música ainda está vazio
+        this.playlist.setPosition(this.musicList.getSelectionModel().getSelectedIndex());
         if (this.player == null) {
-            this.playlist.setPosition(this.musicList.getSelectionModel().getSelectedIndex());
             this.player = new PlayerMusic(musicSelected.getFullPath());
             this.lastMusic = musicSelected.getFullPath();
             this.player.play();
