@@ -24,13 +24,6 @@ public class Playlist {
     }
 
     /**
-     * Monta a playlist geral do usuário
-     * @param username Nome do usuário
-     */
-    public Playlist(String username) {
-    }
-
-    /**
      * Avança na playlist
      *
      * @return A próxima música
@@ -58,6 +51,11 @@ public class Playlist {
         return this.musics.lastElement();
     }
 
+    /**
+     * Pega o objeto de Musica pelo nome
+     * @param name
+     * @return
+     */
     public Music getMusic(String name) {
         for (Music music : this.musics) {
             if (music.getName().equals(name)) {
@@ -66,6 +64,14 @@ public class Playlist {
         }
 
         return null;
+    }
+
+    /**
+     * Retorna a música atual
+     * @return
+     */
+    public Music getActual() {
+        return this.musics.elementAt(this.position);
     }
 
     public Vector<Music> getMusics() {

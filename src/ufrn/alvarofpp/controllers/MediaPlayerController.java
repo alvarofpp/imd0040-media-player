@@ -116,6 +116,8 @@ public class MediaPlayerController extends DefaultController {
         if (this.musicList.getSelectionModel().getSelectedItem() != null) {
             musicSelectedName = this.musicList.getSelectionModel().getSelectedItem().toString();
             musicSelected = this.playlist.getMusic(musicSelectedName);
+            // Muda a label de música
+            this.musicLabel.setText(musicSelected.getName());
         }
 
         // Quando o tocador de música ainda está vazio
@@ -123,6 +125,8 @@ public class MediaPlayerController extends DefaultController {
             // Caso não tenha item selecionado na lista
             if (musicSelected == null) {
                 this.player = new PlayerMusic(this.playlist.next().getFullPath());
+                // Muda a label de música
+                this.musicLabel.setText(this.playlist.getActual().getName());
             } else {
                 this.player = new PlayerMusic(musicSelected.getFullPath());
                 this.lastMusic = musicSelected.getFullPath();
@@ -132,7 +136,7 @@ public class MediaPlayerController extends DefaultController {
             if ((musicSelected != null) && (!musicSelected.getFullPath().equals(this.lastMusic))) {
                 this.player.stop();
                 this.lastMusic = musicSelected.getFullPath();
-                this.player = new PlayerMusic(this.lastMusic);
+                this.player.changeMusic(this.lastMusic);
                 this.player.play();
             } else {
                 if (this.press) {
@@ -153,13 +157,7 @@ public class MediaPlayerController extends DefaultController {
      */
     @FXML
     private void handleNextMusic(MouseEvent event) {
-        Music music = this.playlist.next();
-
-        if (music != null) {
-            if (player != null) player.stop();
-            player = new PlayerMusic(music.getPath());
-            player.play();
-        }
+        this.changeMusic(this.playlist.next());
     }
 
     /**
@@ -169,13 +167,22 @@ public class MediaPlayerController extends DefaultController {
      */
     @FXML
     private void handleBackMusic(MouseEvent event) {
-        Music music = this.playlist.back();
+        this.changeMusic(this.playlist.back());
+    }
 
-        if (music != null) {
-            if (player != null) player.stop();
-            player = new PlayerMusic(music.getPath());
-            player.play();
+    /**
+     * Muda a música que tá tocando
+     * @param music Música que se deseja tocar
+     */
+    private void changeMusic(Music music) {
+        if (player != null) {
+            player.stop();
         }
+        player.changeMusic(music.getFullPath());
+        player.play();
+
+        // Atualiza label de música
+        this.musicLabel.setText(music.getName());
     }
 
     /**

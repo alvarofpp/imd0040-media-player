@@ -81,4 +81,8 @@ public class PlayerMusic {
 
         player.close();
     }
+
+    public void changeMusic(String path) {
+        this.pathMusic = path;
+    }
 }
