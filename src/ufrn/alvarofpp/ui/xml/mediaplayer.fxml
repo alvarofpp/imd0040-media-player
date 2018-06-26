@@ -77,6 +77,8 @@
                 <Font name="Ebrima" size="18.0"/>
             </font>
         </Label>
+        <FontAwesomeIconView fx:id="addMusic" glyphName="PLUS" layoutX="270.0" layoutY="100.0" size="1em"
+                             styleClass="player-btns" onMouseClicked="#handleAddMusic"/>
         <ListView fx:id="musicList" layoutX="20.0" layoutY="115.0" prefHeight="250.0" prefWidth="260.0">
         </ListView>
         <!-- Linha -->

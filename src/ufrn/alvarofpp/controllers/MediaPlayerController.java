@@ -1,5 +1,6 @@
 package ufrn.alvarofpp.controllers;
 
+import java.io.File;
 import java.net.URL;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
@@ -16,14 +17,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import ufrn.alvarofpp.controllers.helpers.Alerts;
 import ufrn.alvarofpp.controllers.helpers.PlayerMusic;
 import ufrn.alvarofpp.db.models.Playlist;
 import ufrn.alvarofpp.db.models.User;
+import ufrn.alvarofpp.exceptions.FieldNotFoundException;
+import ufrn.alvarofpp.exceptions.UserExistException;
 import ufrn.alvarofpp.ui.MediaPlayerUI;
 import ufrn.alvarofpp.controllers.helpers.Coordinates;
 import ufrn.alvarofpp.controllers.helpers.AnimationGenerator;
 import ufrn.alvarofpp.db.files.Musics;
 import ufrn.alvarofpp.db.models.Music;
+
+import javax.swing.*;
 
 public class MediaPlayerController extends DefaultController {
     /**
@@ -60,6 +66,10 @@ public class MediaPlayerController extends DefaultController {
      */
     private User user;
     /**
+     * Músicas no banco de dados
+     */
+    private Musics musics;
+    /**
      * Bool usado pelo play
      */
     private boolean press = true;
@@ -75,29 +85,26 @@ public class MediaPlayerController extends DefaultController {
      * Media Player, serve para controlar as músicas
      */
     private Playlist playlist;
+    /**
+     * Alertas
+     */
+    private Alerts alerts;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        coordinates = new Coordinates();
+        this.coordinates = new Coordinates();
         makeStageDrageable();
-        animationGenerator = new AnimationGenerator();
+        this.animationGenerator = new AnimationGenerator();
+        this.alerts = new Alerts();
 
         // Testes
         this.user = new User("alvarofpp", "alvaro123");
 
         // Músicas do usuário
-        Musics musics = new Musics(this.user.getUsername());
+        this.musics = new Musics(this.user.getUsername());
+        updateListMusic();
         // Playlist
-        this.playlist = new Playlist(musics.getMusics());
-        // A lista de itens
-        ObservableList listaItens = FXCollections.observableArrayList();
-        // Alimenta a lista
-        for (Music music : musics.getMusics()) {
-            listaItens.add(music.getName());
-        }
-        //listaItens.add(musics.getMusics());
-        // Envia a lista para view
-        this.musicList.setItems(listaItens);
+        this.playlist = new Playlist(this.musics.getMusics());
 
         // Nome do usuário
         this.usernameLabel.setText(this.user.getUsername());
@@ -106,6 +113,46 @@ public class MediaPlayerController extends DefaultController {
         // Música inicialmente é null
         this.musicLabel.setText("Não está tocando nada");
 
+    }
+
+    private void updateListMusic() {
+        // A lista de itens
+        ObservableList listaItens = FXCollections.observableArrayList();
+        // Alimenta a lista
+        for (Music music : this.musics.getMusics()) {
+            listaItens.add(music.getName());
+        }
+        //listaItens.add(musics.getMusics());
+        // Envia a lista para view
+        this.musicList.setItems(listaItens);
+    }
+
+    /**
+     * Adiciona uma nova música
+     * @param event
+     */
+    @FXML
+    private void handleAddMusic(MouseEvent event) {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        int result = fileChooser.showOpenDialog(null);
+
+        // Verifica se o usuário selecionou um arquivo
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            // Tenta adicionar uma nova música
+            try {
+                // Adiciona a nova música no banco
+                this.musics.create(selectedFile.getName(), selectedFile.getParentFile().getPath());
+                updateListMusic();
+                // Mostra alerta para o usuário
+                this.alerts.show(1, "Adição de nova música", selectedFile.getName(), "Adicionado com sucesso!");
+            } catch (FieldNotFoundException e) {
+                e.printStackTrace();
+            } catch (UserExistException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**

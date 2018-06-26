@@ -67,13 +67,6 @@ public class Musics extends TableFile {
      * @param path      Caminho da música
      */
     public void create(String musicname, String path) throws FieldNotFoundException, UserExistException {
-        // Verifica se um dos campos está vazio
-        if ("".equals(musicname)) {
-            throw new FieldNotFoundException("Music name");
-        } else if ("".equals(path)) {
-            throw new FieldNotFoundException("Path");
-        }
-
         // Verifica se a música já existe
         if (this.exist(musicname, path)) {
             throw new UserExistException(musicname);
@@ -83,9 +76,13 @@ public class Musics extends TableFile {
         Music music = new Music(this.username, musicname, path);
 
         try {
+            String newLine = music.getUsername()
+                    + this.delimiter + music.getName()
+                    + this.delimiter + music.getPath()
+                    + this.delimiter + music.getId();
             // Salva a nova música
             BufferedWriter writer = new BufferedWriter(new FileWriter(this.path, true));
-            writer.write(music.getName() + this.delimiter + music.getPath() + "\n");
+            writer.write(newLine + "\n");
             writer.close();
 
             // Atualiza a lista de músicas
