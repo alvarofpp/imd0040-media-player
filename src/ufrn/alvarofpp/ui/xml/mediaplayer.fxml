@@ -10,8 +10,8 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-
 <?import javafx.scene.control.ListView?>
+
 <HBox fx:id="mediaplayerui" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
       minWidth="-Infinity" prefHeight="590.0" prefWidth="695.0" styleClass="parent"
       stylesheets="@../../css/stylesheet.css" xmlns="http://javafx.com/javafx/8.0.121"
@@ -43,11 +43,11 @@
                         prefWidth="378.0" progress="0.46"/>
         <!-- Botões de controle da playlist -->
         <FontAwesomeIconView glyphName="ARROW_LEFT" layoutX="88.0" layoutY="414.0" size="2em"
-                             styleClass="player-btns"/>
+                             styleClass="player-btns" onMouseClicked="#handleBackMusic"/>
         <FontAwesomeIconView glyphName="PLAY" layoutX="180.0" layoutY="414.0" size="2em"
-                             styleClass="player-btns"/>
+                             styleClass="player-btns" onMouseClicked="#handlePlay"/>
         <FontAwesomeIconView glyphName="ARROW_RIGHT" layoutX="270.0" layoutY="414.0" size="2em"
-                             styleClass="player-btns"/>
+                             styleClass="player-btns" onMouseClicked="#handleNextMusic"/>
     </Pane>
     <Pane fx:id="sidebar" layoutX="220.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity"
           minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="300.0" styleClass="player"

@@ -6,11 +6,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-
 import ufrn.alvarofpp.db.models.User;
-import ufrn.alvarofpp.exceptions.FieldNotFoundException;
 import ufrn.alvarofpp.exceptions.UserExistException;
+import ufrn.alvarofpp.exceptions.FieldNotFoundException;
 
+/**
+ * Classe para leitura de arquivos de dados dos usuários
+ */
 public class Users extends TableFile {
     /**
      * Vetor de usuários cadastrados.
@@ -38,7 +40,7 @@ public class Users extends TableFile {
         }
 
         // Verifica se usuário já existe
-        if (this.existUser(username)) {
+        if (this.exist(username)) {
             throw new UserExistException(username);
         }
 
@@ -109,7 +111,7 @@ public class Users extends TableFile {
      * @param username Username do usuário
      * @return Verdadeiro se existir, falso caso contrário
      */
-    private boolean existUser(String username) {
+    private boolean exist(String username) {
         // Procura o usuário
         for (User user : this.users) {
             if (user.getUsername().equals(username)) {

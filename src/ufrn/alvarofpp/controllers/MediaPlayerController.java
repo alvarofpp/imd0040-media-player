@@ -1,18 +1,27 @@
 package ufrn.alvarofpp.controllers;
 
 import java.net.URL;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+
 import java.util.ResourceBundle;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import ufrn.alvarofpp.controllers.helpers.PlayerMusic;
+import ufrn.alvarofpp.db.models.Playlist;
 import ufrn.alvarofpp.db.models.User;
 import ufrn.alvarofpp.ui.MediaPlayerUI;
 import ufrn.alvarofpp.controllers.helpers.Coordinates;
 import ufrn.alvarofpp.controllers.helpers.AnimationGenerator;
+import ufrn.alvarofpp.db.files.Musics;
+import ufrn.alvarofpp.db.models.Music;
 
 public class MediaPlayerController extends DefaultController {
     /**
@@ -39,11 +48,26 @@ public class MediaPlayerController extends DefaultController {
      * Animações
      */
     private AnimationGenerator animationGenerator;
-
     /**
      * Usuário logado
      */
     private User user;
+    /**
+     * Bool usado pelo play
+     */
+    private boolean press = true;
+    /**
+     * Reprodutor de música
+     */
+    private PlayerMusic player;
+    /**
+     * Última música tocada
+     */
+    private String lastMusic;
+    /**
+     * Media Player, serve para controlar as músicas
+     */
+    private Playlist playlist;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -53,24 +77,108 @@ public class MediaPlayerController extends DefaultController {
 
         // Testes
         this.user = new User("alvarofpp", "alvaro123");
-        this.prepareEnv();
-    }
 
-    /**
-     * Prepara o ambiente da view
-     */
-    private void prepareEnv() {
+        // Músicas do usuário
+        Musics musics = new Musics(this.user.getUsername());
+        // Playlist
+        this.playlist = new Playlist(musics.getMusics());
+        // A lista de itens
+        ObservableList listaItens = FXCollections.observableArrayList();
+        // Alimenta a lista
+        for (Music music : musics.getMusics()) {
+            listaItens.add(music.getName());
+        }
+        //listaItens.add(musics.getMusics());
+        // Envia a lista para view
+        this.musicList.setItems(listaItens);
+
         // Nome do usuário
         this.usernameLabel.setText(this.user.getUsername());
         // Playlist inicialmente é null
         this.playlistLabel.setText(null);
         // Música inicialmente é null
         this.musicLabel.setText("Não está tocando nada");
-        // Upload das músicas
+
+    }
+
+    /**
+     * Toca a música
+     *
+     * @param event
+     */
+    @FXML
+    private void handlePlay(MouseEvent event) {
+        // Música selecionada na playlist
+        String musicSelectedName;
+        Music musicSelected = null;
+
+        // Verifica se teve item selecionado na playlist
+        if (this.musicList.getSelectionModel().getSelectedItem() != null) {
+            musicSelectedName = this.musicList.getSelectionModel().getSelectedItem().toString();
+            musicSelected = this.playlist.getMusic(musicSelectedName);
+        }
+
+        // Quando o tocador de música ainda está vazio
+        if (this.player == null) {
+            // Caso não tenha item selecionado na lista
+            if (musicSelected == null) {
+                this.player = new PlayerMusic(this.playlist.next().getFullPath());
+            } else {
+                this.player = new PlayerMusic(musicSelected.getFullPath());
+                this.lastMusic = musicSelected.getFullPath();
+            }
+            this.player.play();
+        } else {
+            if ((musicSelected != null) && (!musicSelected.getFullPath().equals(this.lastMusic))) {
+                this.player.stop();
+                this.lastMusic = musicSelected.getFullPath();
+                this.player = new PlayerMusic(this.lastMusic);
+                this.player.play();
+            } else {
+                if (this.press) {
+                    this.player.pause();
+                    this.press = false;
+                } else {
+                    this.player.play();
+                    this.press = true;
+                }
+            }
+        }
+    }
+
+    /**
+     * Passa a música
+     * @param event
+     */
+    @FXML
+    private void handleNextMusic(MouseEvent event) {
+        Music music = this.playlist.next();
+
+        if (music != null) {
+            if (player != null) player.stop();
+            player = new PlayerMusic(music.getPath());
+            player.play();
+        }
+    }
+
+    /**
+     * Volta a música
+     * @param event
+     */
+    @FXML
+    private void handleBackMusic(MouseEvent event) {
+        Music music = this.playlist.back();
+
+        if (music != null) {
+            if (player != null) player.stop();
+            player = new PlayerMusic(music.getPath());
+            player.play();
+        }
     }
 
     /**
      * Mostra o sidebar
+     *
      * @param event
      */
     @FXML
@@ -112,9 +220,5 @@ public class MediaPlayerController extends DefaultController {
         mediaplayerui.setOnMouseReleased((e) -> {
             MediaPlayerUI.stage.setOpacity(AnimationGenerator.VISIBLE);
         });
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 }

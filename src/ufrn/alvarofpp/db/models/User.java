@@ -1,5 +1,8 @@
 package ufrn.alvarofpp.db.models;
 
+/**
+ * Representa o usuário do sistema
+ */
 public class User {
     /**
      * Nome do usuário

@@ -1,5 +1,8 @@
 package ufrn.alvarofpp.db.files;
 
+/**
+ * Classe para leitura de arquivos de dados
+ */
 public abstract class TableFile {
     /**
      * Nome do arquivo
