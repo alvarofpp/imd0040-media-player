@@ -1,8 +1,8 @@
-# IMD0040 - Linguagem de Programação II - T01 (2018.1)
+# Media Player
 
-Trabalho final da disciplina - unidade 3.
+Trabalho final da disciplina **Linguagem de Programação II** (IMD0040, T01, 2018.1), ministrado pelo professor Frederico Araujo da Silva Lopes.
 
-**Componentes**:
+**Discentes**:
 - <a href="https://github.com/alvarofpp">Álvaro Ferreira Pires de Paiva</a>
   - Matrícula: 2016039162
   - E-mail: alvarofepipa@gmail.com
